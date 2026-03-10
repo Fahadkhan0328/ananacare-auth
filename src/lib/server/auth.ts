@@ -1,6 +1,7 @@
+// 1. Add the SvelteKit environment import
+import { dev } from '$app/environment'; 
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-// 1. Import the official JWT plugin
 import { jwt } from "better-auth/plugins"; 
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
@@ -9,7 +10,7 @@ import { env } from "$env/dynamic/private";
 
 const connectionString = env.DATABASE_URL;
 
-// FIX 1: Strip query parameters so the pg driver doesn't crash from sslmode=require
+// Strip query parameters so the pg driver doesn't crash from sslmode=require
 const safeConnectionString = connectionString.split('?')[0];
 
 const pool = new pg.Pool({ 
@@ -27,14 +28,16 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    // Add this new block for Google OAuth:
     socialProviders: {
         google: {
             clientId: env.GOOGLE_CLIENT_ID,
             clientSecret: env.GOOGLE_CLIENT_SECRET,
         }
     },
-    baseURL: env.BETTER_AUTH_URL,
+    
+    // 2. Force the correct URL based on the environment
+    baseURL: dev ? "http://localhost:5173" : "https://ananacare-auth.vercel.app",
+    
     secret: env.BETTER_AUTH_SECRET,
     user: {
         additionalFields: {
