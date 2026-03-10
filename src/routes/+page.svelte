@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
     import { authClient } from '$lib/auth-client'; 
 
     let isLogin = false; 
@@ -6,17 +7,19 @@
     let email = '';
     let password = '';
     let loading = false;
+    
+    // 1. This new variable will hold the exact error reason
     let errorMessage = ''; 
 
     function toggleMode() {
         isLogin = !isLogin;
         password = ''; 
-        errorMessage = ''; 
+        errorMessage = ''; // Clear the error when switching modes
     }
 
     async function handleSubmit() {
         loading = true;
-        errorMessage = ''; 
+        errorMessage = ''; // Clear any old errors
         
         try {
             if (isLogin) {
@@ -30,8 +33,7 @@
                     errorMessage = error.message || "Authentication failed";
                     console.log("Sign In Error:", error);
                 } else {
-                    // FIX: Force a hard browser redirect to guarantee cookie delivery
-                    window.location.href = '/dashboard';
+                    goto('/dashboard');
                 }
             } else {
                 // --- SIGN UP ---
@@ -43,13 +45,13 @@
                 
                 if (error) {
                    errorMessage = error.message || "Authentication failed";
-                   console.log("Sign Up Error:", error);
+                    console.log("Sign Up Error:", error);
                 } else {
-                    // FIX: Force a hard browser redirect
-                    window.location.href = '/dashboard';
+                    goto('/dashboard');
                 }
             }
         } catch (err: any) {
+            // Catch complete crashes
             errorMessage = err.message || "An unknown error occurred";
             console.error("Hard Crash:", err);
         } finally {
@@ -63,8 +65,7 @@
         try {
             const { data, error } = await authClient.signIn.social({
                 provider: "google",
-                // FIX: Use an absolute URL for the callback to prevent Vercel routing issues
-                callbackURL: "https://ananacare-auth.vercel.app/dashboard" 
+                callbackURL: "/dashboard" // Redirects here after successful login
             });
             
             if (error) {
