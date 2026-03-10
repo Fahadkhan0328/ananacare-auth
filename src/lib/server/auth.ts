@@ -20,7 +20,6 @@ const pool = new pg.Pool({
 
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
-
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql"
@@ -35,9 +34,17 @@ export const auth = betterAuth({
         }
     },
     
-    // 2. Force the correct URL based on the environment
     baseURL: dev ? "http://localhost:5173" : "https://ananacare-auth.vercel.app",
     
+    // UPDATED ADVANCED BLOCK
+    advanced: {
+        // crossSiteReflection removed to fix the Type Error
+    },
+    trustedOrigins: [
+        "https://ananacare-auth.vercel.app",
+        "http://localhost:5173"
+    ],
+
     secret: env.BETTER_AUTH_SECRET,
     user: {
         additionalFields: {
