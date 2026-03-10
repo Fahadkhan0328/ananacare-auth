@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
     import { authClient } from '$lib/auth-client'; 
 
     let isLogin = false; 
@@ -7,19 +6,17 @@
     let email = '';
     let password = '';
     let loading = false;
-    
-    // 1. This new variable will hold the exact error reason
     let errorMessage = ''; 
 
     function toggleMode() {
         isLogin = !isLogin;
         password = ''; 
-        errorMessage = ''; // Clear the error when switching modes
+        errorMessage = ''; 
     }
 
     async function handleSubmit() {
         loading = true;
-        errorMessage = ''; // Clear any old errors
+        errorMessage = ''; 
         
         try {
             if (isLogin) {
@@ -33,7 +30,8 @@
                     errorMessage = error.message || "Authentication failed";
                     console.log("Sign In Error:", error);
                 } else {
-                    goto('/dashboard');
+                    // FIX: Force a hard browser redirect to guarantee cookie delivery
+                    window.location.href = '/dashboard';
                 }
             } else {
                 // --- SIGN UP ---
@@ -45,13 +43,13 @@
                 
                 if (error) {
                    errorMessage = error.message || "Authentication failed";
-                    console.log("Sign Up Error:", error);
+                   console.log("Sign Up Error:", error);
                 } else {
-                    goto('/dashboard');
+                    // FIX: Force a hard browser redirect
+                    window.location.href = '/dashboard';
                 }
             }
         } catch (err: any) {
-            // Catch complete crashes
             errorMessage = err.message || "An unknown error occurred";
             console.error("Hard Crash:", err);
         } finally {
@@ -65,7 +63,8 @@
         try {
             const { data, error } = await authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/dashboard" // Redirects here after successful login
+                // FIX: Use an absolute URL for the callback to prevent Vercel routing issues
+                callbackURL: "https://ananacare-auth.vercel.app/dashboard" 
             });
             
             if (error) {
