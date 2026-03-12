@@ -42,9 +42,10 @@ export const auth = betterAuth({
     advanced: {
         // crossSiteReflection removed to fix the Type Error
     },
-    trustedOrigins: [
+   trustedOrigins: [
         "https://ananacare-auth.vercel.app",
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "https://dash.better-auth.com" // ADD THIS LINE so the dashboard is allowed to connect
     ],
 
     secret: env.BETTER_AUTH_SECRET,
