@@ -1,36 +1,39 @@
 {
-	"name": "my-auth-app",
-	"private": true,
-	"version": "0.0.1",
-	"type": "module",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"postinstall": "prisma generate"
-	},
-	"devDependencies": {
-		"@fontsource/fira-mono": "^5.2.7",
-		"@neoconfetti/svelte": "^2.2.2",
-		"@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/adapter-vercel": "^6.3.3",
-		"@sveltejs/kit": "^2.50.2",
-		"@sveltejs/vite-plugin-svelte": "^6.2.4",
-		"@types/node": "^25.4.0",
-		"@types/pg": "^8.18.0",
-		"svelte": "^5.51.0",
-		"svelte-check": "^4.4.2",
-		"typescript": "^5.9.3",
-		"vite": "^7.3.1"
-	},
-	"dependencies": {
-		"@better-auth/infra": "^0.1.8",
-		"@prisma/adapter-pg": "^7.4.2",
-		"@prisma/client": "^7.4.2",
-		"better-auth": "^1.5.4",
-		"pg": "^8.20.0",
-		"prisma": "^7.4.2"
-	}
+    "name": "my-auth-app",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "postinstall": "prisma generate"
+    },
+    "devDependencies": {
+        "@fontsource/fira-mono": "^5.2.7",
+        "@neoconfetti/svelte": "^2.2.2",
+        "@sveltejs/adapter-auto": "^7.0.0",
+        "@sveltejs/adapter-vercel": "^6.3.3",
+        "@sveltejs/kit": "^2.50.2",
+        "@sveltejs/vite-plugin-svelte": "^6.2.4",
+        "@types/node": "^25.4.0",
+        "@types/pg": "^8.18.0",
+        "svelte": "^5.51.0",
+        "svelte-check": "^4.4.2",
+        "typescript": "^5.9.3",
+        "vite": "^7.3.1"
+    },
+    "dependencies": {
+        "@better-auth/infra": "^0.1.8",
+        "@prisma/adapter-pg": "^7.4.2",
+        "@prisma/client": "^7.4.2",
+        "better-auth": "^1.5.4",
+        "pg": "^8.20.0",
+        "prisma": "^7.4.2"
+    },
+    "overrides": {
+        "camelcase": "6.3.0"
+    }
 }
