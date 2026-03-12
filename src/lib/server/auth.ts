@@ -3,6 +3,8 @@ import { dev } from '$app/environment';
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { jwt } from "better-auth/plugins"; 
+// ADD THIS: Import the infrastructure plugin
+import { dash } from "@better-auth/infra"; 
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
@@ -20,6 +22,7 @@ const pool = new pg.Pool({
 
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
+
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql"
@@ -36,7 +39,6 @@ export const auth = betterAuth({
     
     baseURL: dev ? "http://localhost:5173" : "https://ananacare-auth.vercel.app",
     
-    // UPDATED ADVANCED BLOCK
     advanced: {
         // crossSiteReflection removed to fix the Type Error
     },
@@ -56,6 +58,10 @@ export const auth = betterAuth({
         }
     },
     plugins: [
-        jwt()
+        jwt(),
+        // ADD THIS: The bridge to your Pro Dashboard
+        dash({
+            apiKey: env.BETTER_AUTH_API_KEY
+        })
     ]
 });
