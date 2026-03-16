@@ -18,6 +18,7 @@
         "@sveltejs/adapter-vercel": "^6.3.3",
         "@sveltejs/kit": "^2.50.2",
         "@sveltejs/vite-plugin-svelte": "^6.2.4",
+        "@types/jsonwebtoken": "^9.0.10",
         "@types/node": "^25.4.0",
         "@types/pg": "^8.18.0",
         "svelte": "^5.51.0",
@@ -30,6 +31,7 @@
         "@prisma/adapter-pg": "^7.4.2",
         "@prisma/client": "^7.4.2",
         "better-auth": "^1.5.4",
+        "jsonwebtoken": "^9.0.3",
         "pg": "^8.20.0",
         "prisma": "^7.4.2"
     },

@@ -30,6 +30,12 @@
 
             <p>You have successfully conquered SvelteKit routing, Better Auth, and PostgreSQL!</p>
 
+            <div style="margin: 2rem 0;">
+                <a href="/profile" class="profile-btn">
+                    👤 Go to My Profile
+                </a>
+            </div>
+
             {#if data.user.role === 'admin'}
                 <div class="admin-panel">
                     <h2>⚙️ Admin Controls</h2>
@@ -127,6 +133,22 @@
         border-radius: 9999px;
         font-size: 0.875rem;
         font-weight: 500;
+    }
+
+    /* New Profile Button Styles */
+    .profile-btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #2563eb;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+
+    .profile-btn:hover {
+        background-color: #1d4ed8;
     }
 
     /* Admin Panel Styles */
