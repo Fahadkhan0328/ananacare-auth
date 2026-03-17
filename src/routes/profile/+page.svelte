@@ -9,7 +9,7 @@
         apiResponse = "Connecting...";
         try {
             // Because your role is "admin", we can test the admin-only route!
-            const res = await fetch("http://127.0.0.1:8000/api/admin-only", {
+            const res = await fetch("ananacare-backend-production.up.railway.app", {
                 method: "GET",
                 headers: {
                     // This is the "HTTPBearer" token FastAPI is expecting
